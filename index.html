@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PolyTrack Racing Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+        
+        <!-- Game UI -->
+        <div id="gameUI">
+            <div id="speedometer">
+                <div class="meter-label">Speed</div>
+                <div id="speedValue">0</div>
+                <div class="meter-unit">km/h</div>
+            </div>
+            
+            <div id="lapInfo">
+                <div class="lap-label">Lap</div>
+                <div id="currentLap">1</div>
+                <div id="totalLaps">/3</div>
+            </div>
+            
+            <div id="timer">
+                <div class="timer-label">Time</div>
+                <div id="currentTime">00:00.00</div>
+            </div>
+            
+            <div id="bestTime">
+                <div class="timer-label">Best</div>
+                <div id="bestTimeValue">--:--.--</div>
+            </div>
+        </div>
+        
+        <!-- Mobile Controls -->
+        <div id="mobileControls" class="mobile-only">
+            <div id="steeringWheel">
+                <div id="steeringKnob"></div>
+            </div>
+            <div id="pedals">
+                <button id="accelerate" class="pedal">↑</button>
+                <button id="brake" class="pedal">↓</button>
+                <button id="handbrake" class="pedal">H</button>
+            </div>
+        </div>
+        
+        <!-- Menu System -->
+        <div id="mainMenu" class="menu">
+            <h1>PolyTrack Racing</h1>
+            <button id="startRace" class="menu-btn">Start Race</button>
+            <button id="selectTrack" class="menu-btn">Select Track</button>
+            <button id="bestTimes" class="menu-btn">Best Times</button>
+            <button id="settings" class="menu-btn">Settings</button>
+            <button id="multiplayerOpen" class="menu-btn multiplayer-menu-btn">Multiplayer</button>
+        </div>
+        
+        <div id="pauseMenu" class="menu hidden">
+            <h2>Game Paused</h2>
+            <button id="resume" class="menu-btn">Resume</button>
+            <button id="restart" class="menu-btn">Restart</button>
+            <button id="mainMenuBtn" class="menu-btn">Main Menu</button>
+        </div>
+        
+        <div id="raceComplete" class="menu hidden">
+            <h2>Race Complete!</h2>
+            <div id="finalTime">Time: 00:00.00</div>
+            <div id="newRecord" class="hidden">New Best Time!</div>
+            <button id="raceAgain" class="menu-btn">Race Again</button>
+            <button id="backToMenu" class="menu-btn">Main Menu</button>
+        </div>
+        
+        <!-- Loading Screen -->
+        <div id="loadingScreen">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Loading Track...</div>
+        </div>
+        
+        <!-- Instructions -->
+        <div id="instructions" class="hidden">
+            <div class="instruction-panel">
+                <h3>Controls</h3>
+                <p><strong>WASD / Arrow Keys:</strong> Steer and accelerate</p>
+                <p><strong>Space:</strong> Handbrake</p>
+                <p><strong>R:</strong> Reset car position</p>
+                <p><strong>P / ESC:</strong> Pause game</p>
+                <button id="closeInstructions" class="menu-btn">Got it!</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Multiplayer lobby -->
+    <div id="multiplayerPanel" class="menu hidden multiplayer-panel">
+        <h2>Multiplayer</h2>
+        <p class="mp-subtitle">Race friends across different networks.</p>
+        <label for="mpServerUrl">WebSocket server</label>
+        <input id="mpServerUrl" type="url" spellcheck="false" value="ws://localhost:3001" placeholder="wss://your-server.example">
+        <label for="mpPlayerName">Your driver name</label>
+        <input id="mpPlayerName" maxlength="18" value="Driver" autocomplete="nickname">
+        <div class="mp-actions">
+            <button id="mpCreate" class="menu-btn">Create room</button>
+        </div>
+        <label for="mpRoomCode">Room code</label>
+        <input id="mpRoomCode" maxlength="6" placeholder="ABC123" autocapitalize="characters">
+        <button id="mpJoin" class="menu-btn">Join room</button>
+        <div id="mpStatus" class="mp-status">Not connected</div>
+        <div id="mpRoomInfo" class="mp-room-info hidden">
+            <div>Room <strong id="mpRoomCodeDisplay">------</strong></div>
+            <div id="mpPlayers">Waiting for players...</div>
+            <button id="mpStart" class="menu-btn hidden">Start multiplayer race</button>
+        </div>
+        <button id="mpClose" class="menu-btn mp-secondary">Back</button>
+    </div>
+
+    <div id="raceLeaderboard" class="race-leaderboard hidden">
+        <div class="leaderboard-title">RACE POSITIONS</div>
+        <div id="leaderboardRows"></div>
+    </div>
+    <div id="mpToast" class="mp-toast hidden"></div>
+
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Game Scripts -->
+    <script src="ui.js"></script>
+    <script src="camera.js"></script>
+    <script src="car.js"></script>
+    <script src="track.js"></script>
+    <script src="game.js"></script>
+    <script src="multiplayer.js"></script>
+</body>
+</html>
